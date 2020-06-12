@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+{% load static %}
+{% load widget_tweaks %}
+<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}">
+    <script type="text/javascript" src="{% static 'js/jquery.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.min.js'%}"></script>
+<style type="text/css">
+  <style>
+   .row1 {
+      background: #345678;
+   }
+   .row2 {
+      background: #123456;
+   }
+</style>
+</style>
+</head>
+<body>
+   <!-- {% for i in queryset %}
+    {{ i.content|lower }}
+    {{ i.content|upper }}
+   content {{ i.content|filesizeformat }}
+    {{ i.created_date|date:"Y-m-d" }}
+    {% if i.content|length > 7 %}
+      <h4>{{ i.content }}</h4>
+
+      {% else %}
+      <h4>ok man</h4>
+      {% endif %}
+    {% endfor %} -->
+    
+    <!-- {% for i in queryset %}
+     {{ i.created_date|date:"d M Y"}}
+    {% endfor %} -->
+
+    <!-- {% for i in queryset %}
+    <tr>
+    <td class="{% cycle 'row1' 'row2' as rowcolors %}">{{ i.created_by.username }}</td>
+    <td class="{{ rowcolors }}">{{ i.content }}</td>
+    </tr>
+<tr>
+  <td class="{% cycle rowcolors %}">{{ i.created_date|date:'d M Y' }}</td>
+  <td class="{{ rowcolors }}"></td>
+</tr>
+   
+    {% endfor %}
+   -->
+
+  {# django test project #}
+ 
+
+<!-- {% firstof var1 var2 queryset as value %} -->
+ 
+<!-- {% for i in queryset %} 
+{% if not i %}
+  <h4>not queryset</h4>
+{% else %} 
+   {% if 'alamin' in i.content %}
+    <h4>success</h4>
+    {% else %}
+      {% if i.content|length > 10 %}
+      <h4>length check</h4>
+      {% else %}
+        <h4>Length not support</h4>
+      {% endif %}
+    {% endif %}
+{% endif %}
+
+{% empty %}
+<h4>no data </h4>
+
+{% endfor %} -->
+
+
+
+<!-- {% for i in queryset %}
+  <div style="background-color:
+        {% ifchanged i.content %}
+            {% cycle 'red' 'blue' %}
+        {% else %}
+            gray
+        {% endifchanged %}
+    ">{{ i.content }}</div>
+{% endfor %} -->
+
+
+ <!-- <p>{{ i.content|capfirst }}</p> -->
+<!-- <p>{{ i.content|add:'2' }}</p> -->
+<!-- <p>"{{ i.content|center:"15" }}"</p> -->
+<!-- <p>{{ i.content|cut:" " }}</p> -->
+
+
+<!-- It is {% now "jS F Y H:i" %}
+It is the {% now "jS \o\f F" %}
+
+ -->
+
+
+</body>
+</html>

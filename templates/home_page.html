@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+{% load static %}
+{% load widget_tweaks %}
+<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}">
+
+    <script type="text/javascript" src="{% static 'js/jquery.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.min.js'%}"></script>
+
+
+</head>
+<body>
+
+
+
+ 
+
+
+  <table class="table table-bordered simple-table">
+    <tr>
+    <th>#</th>
+    <th>Eamil</th>
+    <th>Content</th>
+    <th>Created_date</th>
+    <th></th>
+    <th></th>
+    </tr>
+  <tr>
+     
+     
+  </tr>
+  </table>
+  home page
+  <br>
+  <br>
+  <div class="container">
+    <form method="POST" id="article_form" action="">
+      {% csrf_token %}
+      <textarea name="content" id="content"></textarea>
+      <button id="button" class="btn btn-success">submit</button>
+   </form> 
+</div>
+  <br>
+  <br>
+  <div class="test">
+   <br>
+  </div>
+<script type="text/javascript">
+  // var  get_update_csrf = '{{ csrf_token }}'
+  // var url ="{% url 'main_url:drfapp_url:api_folder_urls:router_register_drfapp-list' %}"
+  // console.log(url);
+  // $.ajax({
+  //     url:url,
+  //     type:'GET',
+  //     data:'json',
+  //     success:function(data){
+  //       if(data.length > 0){
+  //         $.each(data, function(i, item){
+  //          // $('.test').append("<span class='show1'>"+ data[i].created_by.email +"</span")
+  //          // $('.test').append("<span class='show2'>"+ data[i].content +"</span")
+  //          // $('.test').append("<span class='show3'>"+ data[i].created_date +"</span")
+  //          $('.test').append("<button data-url='' data-id= "+ data[i].id +" class='delete' >Delete</span")
+  //          console.log(data[i].id);
+  //         })
+          
+  //       }else{
+  //           console.log(data);
+  //         }
+  //     }
+  // });
+
+// $(document).on('click', '.delete', function(){
+//     var contentid = $(this).attr('data-id');
+//     console.log(contentid);
+//     var deleteid = this_delete_fun(contentid);
+//     console.log(deleteid);
+//     $('.delete').attr('data-url',deleteid);
+
+//     url = $(this).attr('data-url');
+//     console.log(url);
+//     $.ajax({
+//       url:url,
+//       type:'DELETE',
+//       beforeSend:function(xhr){
+//           xhr.setRequestHeader("X-CSRFToken", get_update_csrf);
+//         },
+//       success:function(){
+//          alert('success');
+//         }
+//   })
+// });
+
+// var this_delete_fun =function(id){
+//      var leave_api_obj = "{% url 'main_url:drfapp_url:api_folder_urls:router_register_drfapp-detail' '0' %}"
+//         leave_api_obj = leave_api_obj.slice(0,-2)    //to remove demo value '0' from ur
+//         leave_api_obj = leave_api_obj + id +'/'
+//         return leave_api_obj    
+//     }
+
+ 
+
+</script>
+
+
+
+
+  <div class="article_show">
+  </div>
+    <br>
+   
+    <div class="inputform">
+      <form id="article_form" method="POST" class="article-form">
+        {% csrf_token %}
+        <textarea name="content" class='content'></textarea>
+        <a id="button" data-url='' class="btn btn-success submit" type="submit">Update</a>
+      </form> 
+    </div>
+<script type="text/javascript">
+  // --------------------POST------------------
+  var url = "{% url 'main_url:drfapp_url:api_folder_urls:router_register_drfapp-list' %}"
+  console.log(url)
+  $(document).on('submit', "#article_form", function(e){
+  e.preventDefault();
+  var articleForm =$(this);
+  var articleFormData = new FormData(articleForm[0]);
+  $.ajax({
+    type: "POST",
+    url : url,
+    data: articleFormData,
+    async:true,
+    contentType:false,
+    processData:false,
+    cache:false,
+     success:function(data){
+      alert('success');
+
+     }
+  });
+});
+
+  var  get_update_csrf = '{{ csrf_token }}'
+  $(document).ready(function(){
+  var url = "{% url 'main_url:drfapp_url:api_folder_urls:router_register_drfapp-list' %}"
+  console.log(url)
+
+     $.ajax({
+      url:url,
+      type:'GET',
+      data:'json',
+
+      success: function (data){ 
+        if(data.length > 0) {
+         $.each(data, function(i, item){
+
+ $(".simple-table").append("<tr><td>"+data[i].id+"</td><td>"+data[i].created_by.email+"</td><td>"+data[i].content+"</td><td>"+data[i].created_date+"</td><td>"+("<button data-content="+ data[i].content +" data-id="+ data[i].id +" class='show3'>update</button>")+"</td><td>"+("<button data-url='' data-id= "+ data[i].id +" class='delete' >Delete</span")+"</td></tr>");
+
+ 
+         
+        
+           
+           })
+        } else{
+           console.log(data); 
+            
+        }  
+      },
+     });
+// -------------updated------------------------
+$(document).on('click', '.show3', function(){ 
+    data = $(this).attr('data-content');
+    $(".content").val(data);
+    console.log(data);
+    data = $(this).attr('data-id');
+    url = this_content_fun(data)
+    $(".submit").attr('data-url', url);
+    console.log(url);
+  })
+
+  });
+
+
+   var this_content_fun =function(id){
+     var leave_api_obj = "{% url 'main_url:drfapp_url:api_folder_urls:router_register_drfapp-detail' '0' %}"
+        leave_api_obj = leave_api_obj.slice(0,-2)    //to remove demo value '0' from ur
+        leave_api_obj = leave_api_obj + id +'/'
+        return leave_api_obj    
+    }
+
+
+    $(document).on('click', '.submit', function(){
+     event.preventDefault();
+     var url = $(this).attr('data-url');
+     var form = $(".article-form").serialize()
+     console.log("data==", form)
+     $.ajax({
+      type: "PUT",
+      url : url,
+      data: form,
+      beforeSend:function(xhr){
+        xhr.setRequestHeader("X-CSRFToken", get_update_csrf);
+      },
+     
+       success:function(data){
+        alert('success');
+       },
+       error:function(data){
+        console.log(data)
+       }
+    });
+      
+    });
+
+   // ----------------delete method---------------- 
+   var this_delete_fun =function(id){
+     var leave_api_obj = "{% url 'main_url:drfapp_url:api_folder_urls:router_register_drfapp-detail' '0' %}"
+        leave_api_obj = leave_api_obj.slice(0,-2)    //to remove demo value '0' from ur
+        leave_api_obj = leave_api_obj + id +'/'
+        return leave_api_obj    
+    } 
+   $(document).on('click', '.delete', function(){
+    var contentid = $(this).attr('data-id');
+    console.log(contentid);
+    var deleteid = this_delete_fun(contentid);
+    console.log(deleteid);
+    $('.delete').attr('data-url',deleteid);
+
+    url = $(this).attr('data-url');
+    console.log(url);
+    $.ajax({
+      url:url,
+      type:'DELETE',
+      beforeSend:function(xhr){
+          xhr.setRequestHeader("X-CSRFToken", get_update_csrf);
+        },
+      success:function(){
+         alert('success');
+        }
+  })
+});
+
+
+
+</script>
+
+<!-- <div class="container">
+    <form method="POST" id="article_form" action="">
+      {% csrf_token %}
+      <textarea name="content" id="content"></textarea>
+      <button id="button" class="btn btn-success">submit</button>
+   </form> 
+</div> -->
+
+<!-- <script type="text/javascript">
+  $(document).ready(function(){
+  var url = "{% url 'main_url:drfapp_url:api_folder_urls:router_register_drfapp-list' %}"
+  console.log(url)
+   $('button').click(function(){
+     $.ajax({
+      url:url,
+      type:'GET',
+      data:'json',
+
+      success: function (data){ 
+        if(data.length > 0) {
+         $.each(data, function(i, item){
+          $(".article_show").append("<div class='show'>"+ data[i].content +"</div>");
+          $(".article_show").append("<div class='show1'>"+ data[i].created_by.email +"</div>");
+          $(".article_show").append("<div class='show2'>"+ data[i].created_date +"</div>");
+
+          console.log(data);
+          console.log(data[i].id);
+          console.log(data[i].content);
+          console.log(data[i].created_by.last_name);
+          console.log(data[i].created_date);
+
+           })
+        } else {
+           console.log(data); 
+            
+        }
+         
+      },
+         
+
+      error:function(djqXHR, exception){
+        console.log(djqXHR);
+        console.log(exception);
+      }
+
+     });
+   });
+  });
+</script> -->
+
+
+<!-- <script type="text/javascript">
+  var url = "{% url 'main_url:drfapp_url:api_folder_urls:router_register_drfapp-list' %}"
+  console.log(url)
+  $.ajax({
+    url:url,
+    type:'GET',
+    data:'json',
+    success:function(data){
+      console.log(data);
+    },
+
+    error:function(djqXHR, exception){
+      console.log(djqXHR);
+      console.log(exception);
+    }
+  });
+</script> -->
+
+
+
+<!-- <script type="text/javascript">
+  var url = "{% url 'main_url:drfapp_url:api_folder_urls:router_register_drfapp-list' %}"
+  console.log(url)
+  $(document).on('submit', "#article_form", function(e){
+  e.preventDefault();
+  var articleForm =$(this);
+  var articleFormData = new FormData(articleForm[0]);
+  $.ajax({
+    type: "POST",
+    url : url,
+    data: articleFormData,
+    async:true,
+    contentType:false,
+    processData:false,
+    cache:false,
+     success:function(data){
+      alert('success');
+
+     }
+  });
+});
+</script>
+ -->
+</body>
+</html>
